@@ -1,4 +1,5 @@
-// The Fibonacci sequence, list of numbers, where each number is the sum of the two preceding ones: 0, 1, 1, 2, 3, 5, 8, 13...
+// The Fibonacci sequence, list of numbers, 
+// where each number is the sum of the two preceding ones: 0, 1, 1, 2, 3, 5, 8, 13...
 
 function fibonacci(n) {
     if (n == 0) return 0;
