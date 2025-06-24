@@ -2,4 +2,4 @@ Algorithms
 
 ###
 
-I'll be adding as I complete them some very useful Algorithms
+I'll be adding some very useful Algorithms as I get my head around them. :)
