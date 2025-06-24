@@ -1,4 +1,5 @@
-// Merge sorting an array is to divide the array until length is 2, then compare both and change to and add the smallest to a new array
+// Merge sorting an array is to divide the array until length is 2, 
+// then compare both and change to and add the smallest to a new array
 
 // Splitting the Array into 2 halves
 // Splitting the SubArrays into 2 halves
