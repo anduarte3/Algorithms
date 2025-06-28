@@ -35,7 +35,7 @@ function LinkedList() {
                 head.nextNode = current;
             }  
         }  
-        count++
+        count++;
     }
 
     const prepend = (value) => {
@@ -46,13 +46,25 @@ function LinkedList() {
             prep = Node(value);
             prep.nextNode = head;
             head = prep;
-           
         }
         count++;
     }
 
     const size = () => {
-        return `Total number of Nodes is: ${count}`;
+        return `Total number of Nodes is: ${count}.`;
+    }
+
+    const getHead = () => {
+        return `The first node in the list is: ${head.value}.`
+    }
+
+    const getTail = () => {
+        let node = head;
+        while (node.nextNode !== null) {
+            node = node.nextNode;
+        }
+
+        return `The last node in the list is: ${node.value}.`
     }
 
     const toString = () => {
@@ -69,7 +81,7 @@ function LinkedList() {
         return `${result} ) -> null`;
     }
 
-    return { append, prepend, size, toString }
+    return { append, prepend, size, getHead, getTail, toString }
 }
 
 const list = new LinkedList();
@@ -85,6 +97,9 @@ list.append("turtle");
 
 list.prepend("crocodile");
 list.prepend("lion");
+
+console.log(list.getHead());
+console.log(list.getTail());
 
 console.log(list.toString());
 console.log(list.size()) // 8
