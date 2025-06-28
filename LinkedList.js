@@ -1,0 +1,85 @@
+// The principal benefit of a linked list over a conventional array is that the list elements can easily be inserted or removed without reallocation of any other elements.
+// In some programming languages, the size of an array is a concern and one of the ways to overcome that problem and allow dynamically allocated data is using linked lists.
+
+const { Logger } = require("mongodb");
+
+// A linked list is a linear collection of data elements called nodes that “point” to the next node by means of a pointer.
+
+// Each node holds a single element of data and a link or pointer to the next node in the list.
+
+// A head node is the first node in the list, a tail node is the last node in the list. Below is a basic representation of a linked list:
+
+// [ NODE(head) ] -> [ NODE ] -> [ NODE(tail) ] -> null
+
+function Node(data) {
+    let value = data;
+    let nextNode = null;
+
+    return { value, nextNode }
+}
+
+
+function LinkedList() {
+    let head = null;
+    let current = null;
+
+    const append = (value) => {
+        if (head == null) {
+            head = Node(value);
+        } else {
+            if (current != null) {
+                // parrot
+                // current { value = "cat", nextNode = null }
+                // current { value = "cat", nextNode = { value "parrot", nextNode = null } }
+                current.nextNode = Node(value);
+                current = current.nextNode;
+            } else {
+                current = Node(value);
+                head.nextNode = current;
+            }
+         
+            
+        }
+         
+    }
+    
+    const toString = (value) => {
+        let result = `( ${head.value} ) -> `;
+        let curr = head.nextNode;
+
+        if (head.nextNode == null) {
+            return result;
+        } 
+
+        while (curr.nextNode !== null) {
+            result += `( ${curr.value} ) -> `
+            curr = curr.nextNode
+        }
+        result += curr.value
+        return `${result} ) -> null`;
+    }
+
+      return { append, toString }
+}
+
+const list = new LinkedList();
+
+list.append("dog");
+list.append("cat");
+list.append("parrot");
+list.append("hamster");
+list.append("snake");
+list.append("turtle");
+
+console.log(list.toString());
+
+
+// const list = new LinkedList();
+
+// list.append("dog");
+// list.append("cat");
+// list.append("parrot");
+// list.append("hamster");
+// list.append("snake");
+// list.append("turtle");
+// console.log(list.toString());
