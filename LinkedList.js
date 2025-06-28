@@ -55,7 +55,7 @@ function LinkedList() {
         return `Total number of Nodes is: ${count}`;
     }
 
-    const toString = (value) => {
+    const toString = () => {
         let result = `( ${head.value} ) -> `;
         let curr = head.nextNode;
 
