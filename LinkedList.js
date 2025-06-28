@@ -19,7 +19,6 @@ function Node(data) {
 function LinkedList() {
     let head = null;
     let current = null;
-    let prep = null;
     let count = 0;
 
     const append = (value) => {
@@ -39,7 +38,8 @@ function LinkedList() {
     }
 
     const prepend = (value) => {
-        
+        let prep = null;
+
         if (head == null) {
             head = Node(value)
         } else {
@@ -60,10 +60,10 @@ function LinkedList() {
 
     const getTail = () => {
         let node = head;
+
         while (node.nextNode !== null) {
             node = node.nextNode;
         }
-
         return `The last node in the list is: ${node.value}.`
     }
     
@@ -82,6 +82,10 @@ function LinkedList() {
         return `No node found at index ${index}.`
     } 
 
+    const pop = () => {
+
+    }
+
     const toString = () => {
         let result = `( ${head.value} ) -> `;
         let curr = head.nextNode;
@@ -96,7 +100,7 @@ function LinkedList() {
         return `${result} ) -> null`;
     }
 
-    return { append, prepend, size, getHead, getTail, At, toString }
+    return { append, prepend, size, getHead, getTail, At, pop, toString }
 }
 
 const list = new LinkedList();
