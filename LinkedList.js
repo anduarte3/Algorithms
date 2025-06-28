@@ -66,6 +66,21 @@ function LinkedList() {
 
         return `The last node in the list is: ${node.value}.`
     }
+    
+    const At = (index) => {
+        let i = 0;
+        let curr = head;
+
+        while (curr !== null) {
+            if (index == i) {
+                return `The node at index ${index} is: ${curr.value}.`;
+            } 
+            curr = curr.nextNode;
+            i++;
+        }
+
+        return `No node found at index ${index}.`
+    } 
 
     const toString = () => {
         let result = `( ${head.value} ) -> `;
@@ -81,25 +96,29 @@ function LinkedList() {
         return `${result} ) -> null`;
     }
 
-    return { append, prepend, size, getHead, getTail, toString }
+    return { append, prepend, size, getHead, getTail, At, toString }
 }
 
 const list = new LinkedList();
 
 console.log(list.size()) // 0
 
-list.append("dog");
-list.append("cat");
-list.append("parrot");
-list.append("hamster");
-list.append("snake");
-list.append("turtle");
+list.append("Dog");
+list.append("Cat");
+list.append("Parrot");
+list.append("Hamster");
+list.append("Snake");
+list.append("Turtle");
 
-list.prepend("crocodile");
-list.prepend("lion");
+list.prepend("Crocodile");
+list.prepend("Lion");
 
 console.log(list.getHead());
 console.log(list.getTail());
+
+console.log(list.At(2));
+console.log(list.At(7));
+console.log(list.At(9));
 
 console.log(list.toString());
 console.log(list.size()) // 8
