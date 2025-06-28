@@ -20,6 +20,7 @@ function LinkedList() {
     let head = null;
     let current = null;
     let prep = null;
+    let count = 0;
 
     const append = (value) => {
 
@@ -34,6 +35,7 @@ function LinkedList() {
                 head.nextNode = current;
             }  
         }  
+        count++
     }
 
     const prepend = (value) => {
@@ -44,7 +46,13 @@ function LinkedList() {
             prep = Node(value);
             prep.nextNode = head;
             head = prep;
+           
         }
+        count++;
+    }
+
+    const size = () => {
+        return `Total number of Nodes is: ${count}`;
     }
 
     const toString = (value) => {
@@ -61,10 +69,12 @@ function LinkedList() {
         return `${result} ) -> null`;
     }
 
-    return { append, prepend, toString }
+    return { append, prepend, size, toString }
 }
 
 const list = new LinkedList();
+
+console.log(list.size()) // 0
 
 list.append("dog");
 list.append("cat");
@@ -76,5 +86,5 @@ list.append("turtle");
 list.prepend("crocodile");
 list.prepend("lion");
 
-
 console.log(list.toString());
+console.log(list.size()) // 8
