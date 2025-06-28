@@ -19,9 +19,10 @@ function Node(data) {
 function LinkedList() {
     let head = null;
     let current = null;
+    let prep = null;
 
     const append = (value) => {
-        
+
         if (head == null) {
             head = Node(value);
         } else {
@@ -34,7 +35,18 @@ function LinkedList() {
             }  
         }  
     }
-    
+
+    const prepend = (value) => {
+        
+        if (head == null) {
+            head = Node(value)
+        } else {
+            prep = Node(value);
+            prep.nextNode = head;
+            head = prep;
+        }
+    }
+
     const toString = (value) => {
         let result = `( ${head.value} ) -> `;
         let curr = head.nextNode;
@@ -42,14 +54,14 @@ function LinkedList() {
         if (head.nextNode == null) return result;
         
         while (curr.nextNode !== null) {
-            result += `( ${curr.value} ) -> `
-            curr = curr.nextNode
+            result += `( ${curr.value} ) -> `;
+            curr = curr.nextNode;
         }
-        result += curr.value
+        result += curr.value;
         return `${result} ) -> null`;
     }
 
-    return { append, toString }
+    return { append, prepend, toString }
 }
 
 const list = new LinkedList();
@@ -60,5 +72,9 @@ list.append("parrot");
 list.append("hamster");
 list.append("snake");
 list.append("turtle");
+
+list.prepend("crocodile");
+list.prepend("lion");
+
 
 console.log(list.toString());
