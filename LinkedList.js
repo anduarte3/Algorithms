@@ -78,7 +78,6 @@ function LinkedList() {
             curr = curr.nextNode;
             i++;
         }
-
         return `No node found at index ${index}.`
     } 
 
@@ -138,13 +137,11 @@ function LinkedList() {
             result += `( ${curr.value} ) -> `;
             curr = curr.nextNode;
         }
-        result += curr.value;
+        result += `( ${curr.value}`;
         return `${result} ) -> null`;
     }
 
-    //////////////////////////// EXTRA CREDIT //////////////////////////////
-
-    // Inserts a new node with the provided value at the given index
+    ////////////////////////////////////// EXTRA CREDIT //////////////////////////////////////
     const insertAt = (value, index) => {
         let i = 0;
         let curr = head.nextNode;
@@ -194,7 +191,19 @@ function LinkedList() {
         return `Could not remove the node, index at ${index}.`
     }
     
-    return { append, prepend, size, getHead, getTail, At, pop, contains, find, insertAt, removeAt, toString }
+    return { append, 
+        prepend, 
+        size, 
+        getHead, 
+        getTail, 
+        At, 
+        pop, 
+        contains, 
+        find, 
+        insertAt, 
+        removeAt, 
+        toString 
+    }
 }
 
 const list = new LinkedList();
