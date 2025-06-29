@@ -114,6 +114,20 @@ function LinkedList() {
         return false;
     }
 
+    const find = (value) => {
+        let index = 0;
+        let curr = head;
+        
+        while (curr !== null) {
+            if (curr.value == value) {
+                return `The index of ${value} is ${index}`;
+            }    
+            curr = curr.nextNode;
+            index++;
+        }
+        return false;
+    }
+
     const toString = () => {
         let result = `( ${head.value} ) -> `;
         let curr = head.nextNode;
@@ -128,7 +142,7 @@ function LinkedList() {
         return `${result} ) -> null`;
     }
 
-    return { append, prepend, size, getHead, getTail, At, pop, contains, toString }
+    return { append, prepend, size, getHead, getTail, At, pop, contains, find, toString }
 }
 
 const list = new LinkedList();
@@ -157,6 +171,11 @@ console.log(list.pop());
 
 console.log(list.contains("Tiger"));
 console.log(list.contains("Crocodile"));
+console.log(list.contains("Lion"));
+
+console.log(list.find("Zebra"));
+console.log(list.find("Crocodile"));
+console.log(list.find("Lion"));
 
 console.log(list.toString());
 console.log(list.size()) // 8
