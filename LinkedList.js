@@ -92,9 +92,7 @@ function LinkedList() {
             curr = curr.nextNode;
         }
 
-        if (head == null) {
-            return "List is empty";
-        }
+        if (head == null) return "List is empty";
 
         if (head.nextNode == null) {
             head = null;
@@ -104,6 +102,16 @@ function LinkedList() {
         prev.nextNode = null;
         
         return `Removed node ${removed.value}! The last node is now: ${prev.value}.`;
+    }
+
+    const contains = (value) => {
+        let curr = head;
+        
+        while (curr !== null) {
+            if (curr.value == value) return true;
+            curr = curr.nextNode;
+        }
+        return false;
     }
 
     const toString = () => {
@@ -120,7 +128,7 @@ function LinkedList() {
         return `${result} ) -> null`;
     }
 
-    return { append, prepend, size, getHead, getTail, At, pop, toString }
+    return { append, prepend, size, getHead, getTail, At, pop, contains, toString }
 }
 
 const list = new LinkedList();
@@ -146,6 +154,9 @@ console.log(list.At(9));
 
 console.log(list.pop());
 console.log(list.pop());
+
+console.log(list.contains("Tiger"));
+console.log(list.contains("Crocodile"));
 
 console.log(list.toString());
 console.log(list.size()) // 8
