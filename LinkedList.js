@@ -83,7 +83,27 @@ function LinkedList() {
     } 
 
     const pop = () => {
+        let curr = head;
+        let prev;
+        let removed;
 
+        while (curr.nextNode !== null) {
+            prev = curr; 
+            curr = curr.nextNode;
+        }
+
+        if (head == null) {
+            return "List is empty";
+        }
+
+        if (head.nextNode == null) {
+            head = null;
+            return `Removed the solo node ${head}. List is now empty.`;
+        }
+        removed = prev.nextNode;
+        prev.nextNode = null;
+        
+        return `Removed node ${removed.value}! The last node is now: ${prev.value}.`;
     }
 
     const toString = () => {
@@ -123,6 +143,9 @@ console.log(list.getTail());
 console.log(list.At(2));
 console.log(list.At(7));
 console.log(list.At(9));
+
+console.log(list.pop());
+console.log(list.pop());
 
 console.log(list.toString());
 console.log(list.size()) // 8
