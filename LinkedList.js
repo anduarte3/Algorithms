@@ -155,7 +155,7 @@ function LinkedList() {
             past = Node(value);
             past.nextNode = head;
             head = past;
-                        
+
             return `Node ${value} inserted at index ${index}.`
         }
 
@@ -172,7 +172,29 @@ function LinkedList() {
         return `Could not insert the node ${value}, index at ${index}.`
     }
 
-    return { append, prepend, size, getHead, getTail, At, pop, contains, find, insertAt, toString }
+    const removeAt = (index) => {
+        let i = 0;
+        let curr = head;
+        let prev = head;
+        
+        if (index === 0) {
+            head = head.nextNode;
+            return `Node ${prev.value} removed at index ${index}.`
+        }
+
+        while (curr !== null) {
+            if (i === index) {
+                prev.nextNode = curr.nextNode;
+                return `Node removed ${curr.value} at index ${index}.`
+            }
+            prev = curr;
+            curr = curr.nextNode;            
+            i++;
+        }
+        return `Could not remove the node, index at ${index}.`
+    }
+    
+    return { append, prepend, size, getHead, getTail, At, pop, contains, find, insertAt, removeAt, toString }
 }
 
 const list = new LinkedList();
@@ -212,6 +234,12 @@ console.log(list.find("Lion"));
 console.log(list.insertAt("Monkey", 0));
 console.log(list.insertAt("Frog", 4));
 console.log(list.insertAt("Elephant", 10));
+
+console.log(list.toString());
+
+console.log(list.removeAt(0));
+console.log(list.removeAt(4));
+console.log(list.removeAt(10));
 
 console.log(list.toString());
 console.log(list.size()) // 8
