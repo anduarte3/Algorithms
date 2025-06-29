@@ -142,7 +142,37 @@ function LinkedList() {
         return `${result} ) -> null`;
     }
 
-    return { append, prepend, size, getHead, getTail, At, pop, contains, find, toString }
+    //////////////////////////// EXTRA CREDIT //////////////////////////////
+
+    // Inserts a new node with the provided value at the given index
+    const insertAt = (value, index) => {
+        let i = 0;
+        let curr = head.nextNode;
+        let prev = head;
+        let past;
+        
+        if (index === 0) {
+            past = Node(value);
+            past.nextNode = head;
+            head = past;
+                        
+            return `Node ${value} inserted at index ${index}.`
+        }
+
+        while (curr !== null) {
+            if (i == index) {
+                prev.nextNode = Node(value);
+                prev.nextNode.nextNode = curr;
+                return `Node ${value} inserted at index ${index}.`
+            }
+            prev = curr;
+            curr = curr.nextNode;
+            i++;
+        }
+        return `Could not insert the node ${value}, index at ${index}.`
+    }
+
+    return { append, prepend, size, getHead, getTail, At, pop, contains, find, insertAt, toString }
 }
 
 const list = new LinkedList();
@@ -158,6 +188,8 @@ list.append("Turtle");
 
 list.prepend("Crocodile");
 list.prepend("Lion");
+
+console.log(list.toString());
 
 console.log(list.getHead());
 console.log(list.getTail());
@@ -176,6 +208,10 @@ console.log(list.contains("Lion"));
 console.log(list.find("Zebra"));
 console.log(list.find("Crocodile"));
 console.log(list.find("Lion"));
+
+console.log(list.insertAt("Monkey", 0));
+console.log(list.insertAt("Frog", 4));
+console.log(list.insertAt("Elephant", 10));
 
 console.log(list.toString());
 console.log(list.size()) // 8
