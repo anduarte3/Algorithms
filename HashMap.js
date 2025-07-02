@@ -47,13 +47,32 @@ function HashMap() {
             }
             node = node.nextNode;   
         }
-
         buckets[i] = hashKey;
         
         return buckets;
     } 
+
+    const get = (key) => {
+        let hashCode = hash(key);
+        let i = 0;
+        let node = null;
+
+        i = hashCode % 16;
+        node = buckets[i];
+
+        if (!node) return null;
         
-    return {hash, set}
+        while (node) {
+            if (node.key === hashCode) {
+                return `The key ${key} was found and it's value is ${node.value}`;
+            } 
+            if (!node.nextNode) return null;
+
+            node = node.nextNode; 
+        } 
+    }
+        
+    return {hash, set, get}
 }
 
 const hashmap = new HashMap() // or HashMap() if using a factory
@@ -72,3 +91,7 @@ hashmap.set('ice cream', 'white')
 hashmap.set('jacket', 'blue')
 hashmap.set('kite', 'pink')
 hashmap.set('lion', 'golden')
+
+console.log(hashmap.get('lion'));
+console.log(hashmap.get('apple'));
+console.log(hashmap.get('dinosaur'));
