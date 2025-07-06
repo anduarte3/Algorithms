@@ -1,38 +1,57 @@
+import { mergeSort, merge } from "./mergeSort.js"
 // A BST allows fast operations for lookup, insertion, and deletion of data items.
 
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
-function Node (value) {
-    let node = { 
-        value: value, 
-        left: null, 
-        right: null
+function Node (data, left, right) {
+    let node = {
+        data: data,
+        left: left,
+        right: right
     };
 
     return node;
 }
 
-function Tree(arr) {
+function Tree() {
     let root = null;
     
-    const buildTree = () => {
-        let start = 0;
-        let end = arr.length-1;
-        let mid = Math.round((start + end) / 2);
-
-        // console.log("Start:", start);
-        // console.log("End:", end);
-        // console.log("Mid:", mid);
+    const buildTree = (arr) => {
+        let mid = Math.floor(arr.length / 2);
+        let finalArr = [];
+        let leftArr = [];
+        let rightArr = [];
+        let sort = null;
         
-        root = Node(arr[mid]);        
-        console.log(root);
+        const removeDupes = (arr) => {
+            //Remove duplicates
+            finalArr = arr.filter((e, index) => {
+                return arr.indexOf(e) === index;
+            })
+            return finalArr
+        }
+
+        // Run margeSort.js
+        sort = mergeSort(arr);
+        finalArr = removeDupes(arr);
+        
+        if (finalArr.length === 0) return null;
+
+        if (finalArr.length === 1) {
+            root = Node(finalArr[0], null, null)
+            return root;
+        }
+
+        leftArr = finalArr.slice(0, mid);
+        rightArr = finalArr.slice(mid + 1);   
+        
+        root = Node(finalArr[mid], buildTree(leftArr), buildTree(rightArr));
         
         return root;
     }
 
     return { root, buildTree }
 }
-
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node === null) {
@@ -48,6 +67,6 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 };
 
 
-const tree = Tree(arr);
-console.log("Tree Node:", tree.buildTree());
-console.log(prettyPrint(tree.buildTree()));
+const tree = Tree();
+// console.log("Tree Node:", tree.buildTree(arr));
+console.log(prettyPrint(tree.buildTree(arr)));
