@@ -50,5 +50,7 @@ function merge(leftArray, rightArray) {
     return sortedArray;
 }
 
-console.log("Unsorted Array:", array);
-console.log("Sorted Array:", mergeSort(array))
+// console.log("Unsorted Array:", array);
+// console.log("Sorted Array:", mergeSort(array))
+
+export { mergeSort, merge }
