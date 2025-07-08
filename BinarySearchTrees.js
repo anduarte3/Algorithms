@@ -24,17 +24,16 @@ function Tree() {
       let sort = null;
         
       const removeDupes = (arr) => {
-          //Remove duplicates
-          finalArr = arr.filter((e, index) => {
-              return arr.indexOf(e) === index;
-          })
-          return finalArr
+        //Remove duplicates
+        finalArr = arr.filter((e, index) => {
+            return arr.indexOf(e) === index;
+        })
+        return finalArr;
       }
 
       finalArr = removeDupes(arr);
       // Run margeSort.js
       sort = mergeSort(arr);
-      
       
       if (finalArr.length === 0) return null;
 
@@ -51,10 +50,13 @@ function Tree() {
       return root;
     }
 
-    const insert = (root, value) => {
+    const insert = (value) => {
+      root = insertRec(root, value);
+    }
+
+    const insertRec = (root, value) => {
       
-      if (!root || !root.data) {
-        console.log("Tree was empty inserting value as a root");
+      if (!root) {
         return new Node(value, null ,null);
       }
 
@@ -66,12 +68,12 @@ function Tree() {
 
       // Traverse BST in search to place value
       // Note: if value greater than root.data go to right, else go to left
-      if (root.data < value) {
-        //Recursively, go to the right 
-        root.right = insert(root.right, value);
+      if (value < root.data) {
+        //Recursively, go to the left 
+        root.left = insertRec(root.left, value);
       } else {
-        //Recursively, go to the left
-        root.left = insert(root.left, value);
+        //Recursively, go to the right
+        root.right = insertRec(root.right, value);
       }
       
       return root;
@@ -94,12 +96,18 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 };
 
 const tree = Tree();
-tree.root = tree.insert(tree.root, 2);
-tree.root = tree.insert(tree.root, 78);
-tree.root = tree.insert(tree.root, 5);
-tree.root = tree.insert(tree.root, 44);
-tree.root = tree.insert(tree.root, 36);
-tree.root = tree.insert(tree.root, 22);
-console.log(prettyPrint(tree.buildTree(arr)));
+const treeBuilt = tree.buildTree(arr);
+console.log(prettyPrint(treeBuilt));
+tree.insert(2);
+tree.insert(123);
+tree.insert(534);
+tree.insert(14);
+tree.insert(5);
+console.log(prettyPrint(treeBuilt));
 
-console.log(tree.root);
+// tree.root = tree.insert(tree.root, 2);
+// tree.root = tree.insert(tree.root, 78);
+// tree.root = tree.insert(tree.root, 5);
+// tree.root = tree.insert(tree.root, 44);
+// tree.root = tree.insert(tree.root, 36);
+// tree.root = tree.insert(tree.root, 22);
