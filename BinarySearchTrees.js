@@ -243,8 +243,79 @@ function Tree() {
       return heightRec(root, value);
     }
 
-  return { root, buildTree, insert, deleteItem, find, levelOrder, preOrder, inOrder, postOrder, height }
+    const depth = (value) => {
+      let curr = root;
+      let depth = 0;
+
+      const depthRec = (root, value) => {
+        if (root === null) return -1;
+
+        if (value < root.data) {
+          depth++;
+          return depthRec(root.left, value);
+        } else if (value > root.data) {
+          depth++;
+          return depthRec(root.right, value);
+        } else {
+          // Found value in root.data
+          return depth;
+        }
+
+      }
+
+      return depthRec(root, value);
+    }
+
+    const isBalanced = (root) => {
+
+      if (root === null) return true;
+
+      const height = (node) => {
+
+        if (node === null) return -1;
+
+        let lHeight = height(node.left);
+        let rHeight = height(node.right);
+
+        return Math.max(lHeight, rHeight) + 1;
+      }
+
+      let lHeight = height(root.left);
+      let rHeight = height(root.right);
+
+      if (Math.abs(lHeight - rHeight) > 1) return false;
+
+      return isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    const rebalance = () => {
+      let sortedArr = [];
+
+      inOrder(node => sortedArr.push(node.data));
+      root = buildTree(sortedArr);
+
+      return root;
+    }
+
+  return { 
+    root, 
+    buildTree, 
+    insert, 
+    deleteItem, 
+    find, 
+    levelOrder, 
+    preOrder, 
+    inOrder, 
+    postOrder, 
+    height, 
+    depth,
+    isBalanced,
+    rebalance
+  }
 }
+
+
+
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node === null) {
@@ -259,28 +330,53 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
-const tree = Tree();
-const treeBuilt = tree.buildTree(arr);
-//console.log(prettyPrint(treeBuilt));
-tree.insert(123);
-tree.insert(534);
-tree.insert(14);
-console.log("Added:", prettyPrint(treeBuilt));
-tree.deleteItem(123);
-tree.deleteItem(534);
-tree.deleteItem(14);
-console.log("Removed:", prettyPrint(treeBuilt));
-console.log(tree.find(5));
-console.log(tree.find(43));
-console.log(tree.find(3));
-console.log(tree.find(23));
-console.log(tree.find(50));
-//console.log(tree.levelOrder(callback));
-//tree.levelOrder(node => console.log(node.data));
-// tree.preOrder(node => console.log(node.data));
-// tree.inOrder(node => console.log(node.data));
-// tree.postOrder(node => console.log(node.data));
-console.log(tree.height(6345)); // 0
-console.log(tree.height(8)); // 1
-console.log(tree.height(5)); // 2
-console.log(tree.height(23)); // 3
+////////////////////////// DRIVER SCRIPT //////////////////////////
+
+// 1. Generate random array of numbers less than 100
+function createArr (size) {
+  let arr = [];
+
+  for (let i=0; i<size; i++) {
+    arr.push(Math.floor(Math.random() * 100));
+  }
+  console.log(arr);
+  return arr;
+}
+// 2. Build your BST with that array
+const randomArr = createArr(20);          
+const tree = new Tree();                    
+const root = tree.buildTree(randomArr);  
+prettyPrint(root);
+console.log(prettyPrint(root));
+
+// 3.1 In Order tree traversal
+console.log("InOrder traversal:");
+tree.inOrder(node => console.log(node.data));
+console.log("//////////////////////////");
+
+// 3.2 Pre Order tree traversal
+console.log("PreOrder traversal:");
+tree.preOrder(node => console.log(node.data));
+console.log("//////////////////////////");
+
+// 3.3 Post Order tree traversal
+console.log("PostOrder traversal:");
+tree.postOrder(node => console.log(node.data));
+console.log("//////////////////////////");
+
+// 4. Check if tree is balanced
+console.log("Is tree balanced?", tree.isBalanced(tree.root));
+
+// 5. If not balanced, rebalance it
+if (!tree.isBalanced(tree.root)) {
+  tree.rebalance();
+  console.log("Tree rebalanced.");
+  console.log("InOrder traversal after rebalancing:");
+  tree.inOrder(node => console.log(node.data));
+}
+
+// 6. Test height and depth functions
+console.log("Height of node 15:", tree.height(15));
+console.log("Depth of node 15:", tree.depth(15));
+
+////////////////////////// DRIVER SCRIPT //////////////////////////
