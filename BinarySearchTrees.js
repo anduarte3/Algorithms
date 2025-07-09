@@ -1,8 +1,6 @@
 import { mergeSort, merge } from "./mergeSort.js"
 // A BST allows fast operations for lookup, insertion, and deletion of data items.
 
-let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-
 function Node (data, left, right) {
     let node = {
       data: data,
@@ -24,21 +22,21 @@ function Tree() {
       let sorted = null;
         
       const removeDupes = (arr) => {
-        //Remove duplicates
+        // Remove duplicates
         finalArr = arr.filter((e, index) => {
-            return arr.indexOf(e) === index;
-        })
+          return arr.indexOf(e) === index;
+        });
         return finalArr;
       }
 
       finalArr = removeDupes(arr);
-      // Run margeSort.js
+      // Run mergeSort.js
       sorted = mergeSort(finalArr);
       
       if (sorted.length === 0) return null;
 
       if (sorted.length === 1) {
-          root = Node(sorted[0], null, null)
+          root = Node(sorted[0], null, null);
           return root;
       }
 
@@ -56,21 +54,18 @@ function Tree() {
 
     const insertRec = (root, value) => {
       
-      if (!root) {
-        return new Node(value, null ,null);
-      }
-
+      if (!root) return new Node(value, null ,null);
+      
       // Duplicates not allowed
       if (root.data === value) {
-        console.log("Duplicates not allowed");
-        return root;
+        return `Duplicates not allowed`;
       }
 
       if (value < root.data) {
-        //Recursively, go to the left 
+        // Recursively, go to the left 
         root.left = insertRec(root.left, value);
       } else {
-        //Recursively, go to the right
+        // Recursively, go to the right
         root.right = insertRec(root.right, value);
       }
       
@@ -91,30 +86,31 @@ function Tree() {
       if (root.data > value) {
         root.left = deleteItemRec(root.left, value);
         return root;
+
       } else if (root.data < value) {
         root.right = deleteItemRec(root.right, value);
         return root;
+
       } else {
         // If value == root.data
         if (!root.left) return root.right;
         if (!root.right) return root.left;
 
         if (root.left === null) {
-          console.log("Returning root.left", root.right);
           return root.right;
         }
 
         if (root.right === null) {
-          console.log("Returning root.left", root.left);
           return root.left;
         }
 
-        // Case if both childrens have nodes
+        // Case if both childrens have nodes:
         curr = root.right;
 
         while (curr.left) {
           curr = curr.left;
         }
+
         root.data = curr.data;
         root.right = deleteItemRec(root.right, root.data);
 
@@ -128,7 +124,8 @@ function Tree() {
     
     const findRec = (root, value) => {
 
-      if (!root) { return `Value ${value} was not found.` }
+      if (!root) return `Value ${value} was not found.`
+
       if (root.data == value) {
         return `Found value ${root.data}.`;
       }
@@ -139,7 +136,7 @@ function Tree() {
       }
 
       if (value > root.data) {
-        // GO to the right
+        // Go to the right
         return findRec(root.right, value);   
       }
     }
@@ -147,6 +144,7 @@ function Tree() {
     const levelOrder = (callback) => {
       let queue = [];
       let curr = root;
+
       // Root node, then store left and right somewhere:
       if (!root) return null;
 
@@ -163,13 +161,11 @@ function Tree() {
     }
     
     const preOrder = (callback) => {
-      let curr = root;
 
       if (!callback) throw Error("callback missing");
 
       const preTraverse = (curr, callback) => {
         if (!curr) return null;
-
         callback(curr);
         preTraverse(curr.left, callback);
         preTraverse(curr.right, callback);
@@ -185,7 +181,6 @@ function Tree() {
 
       const inTraverse = (curr, callback) => {
         if (!curr) return null;
-
         inTraverse(curr.left, callback);
         callback(curr);
         inTraverse(curr.right, callback);
@@ -201,7 +196,6 @@ function Tree() {
 
       const postTraverse = (curr, callback) => {
         if (!curr) return null;
-
         postTraverse(curr.left, callback);
         postTraverse(curr.right, callback);
         callback(curr);
@@ -220,8 +214,10 @@ function Tree() {
 
         if (value < root.data) {
           return heightRec(root.left, value);
+
         } else if (value > root.data) {
           return heightRec(root.right, value);
+
         } else {
           // Found value in root.data
           curr = root;
@@ -244,7 +240,6 @@ function Tree() {
     }
 
     const depth = (value) => {
-      let curr = root;
       let depth = 0;
 
       const depthRec = (root, value) => {
@@ -260,7 +255,6 @@ function Tree() {
           // Found value in root.data
           return depth;
         }
-
       }
 
       return depthRec(root, value);
@@ -314,9 +308,7 @@ function Tree() {
   }
 }
 
-
-
-
+////////////////////////// PRINT TREE //////////////////////////
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node === null) {
     return;
@@ -378,5 +370,3 @@ if (!tree.isBalanced(tree.root)) {
 // 6. Test height and depth functions
 console.log("Height of node 15:", tree.height(15));
 console.log("Depth of node 15:", tree.depth(15));
-
-////////////////////////// DRIVER SCRIPT //////////////////////////
