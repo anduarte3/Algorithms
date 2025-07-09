@@ -159,11 +159,91 @@ function Tree() {
         callback(curr);
         if (curr.left !== null) queue.push(curr.left);
         if (curr.right !== null) queue.push(curr.right);
-
       }
     }
+    
+    const preOrder = (callback) => {
+      let curr = root;
 
-  return { root, buildTree, insert, deleteItem, find, levelOrder }
+      if (!callback) throw Error("callback missing");
+
+      const preTraverse = (curr, callback) => {
+        if (!curr) return null;
+
+        callback(curr);
+        preTraverse(curr.left, callback);
+        preTraverse(curr.right, callback);
+      }
+
+      preTraverse(root, callback);
+    }
+
+    const inOrder = (callback) => {
+      let curr = root;
+
+      if (!callback) throw Error("callback missing");
+
+      const inTraverse = (curr, callback) => {
+        if (!curr) return null;
+
+        inTraverse(curr.left, callback);
+        callback(curr);
+        inTraverse(curr.right, callback);
+      }
+
+      inTraverse(curr, callback);
+    }
+
+    const postOrder = (callback) => {
+      let curr = root;
+
+      if (!callback) throw Error("callback missing");
+
+      const postTraverse = (curr, callback) => {
+        if (!curr) return null;
+
+        postTraverse(curr.left, callback);
+        postTraverse(curr.right, callback);
+        callback(curr);
+      }
+
+      postTraverse(curr, callback);
+    }
+
+    const height = (value) => {
+      let curr = null;
+      let height = 0;
+
+      const heightRec = (root, value) => {
+
+        if (!root) return "Not Found";
+
+        if (value < root.data) {
+          return heightRec(root.left, value);
+        } else if (value > root.data) {
+          return heightRec(root.right, value);
+        } else {
+          // Found value in root.data
+          curr = root;
+          return heightNode(curr);
+        }
+      }
+
+      const heightNode = (curr) => {
+        
+        if (curr === null) return -1;
+
+        let lHeight = heightNode(curr.left);
+        let rHeight = heightNode(curr.right);
+
+        height = Math.max(lHeight, rHeight) + 1;
+        return height;
+      }
+      
+      return heightRec(root, value);
+    }
+
+  return { root, buildTree, insert, deleteItem, find, levelOrder, preOrder, inOrder, postOrder, height }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -196,4 +276,11 @@ console.log(tree.find(3));
 console.log(tree.find(23));
 console.log(tree.find(50));
 //console.log(tree.levelOrder(callback));
-tree.levelOrder(node => console.log("test", node.data));
+//tree.levelOrder(node => console.log(node.data));
+// tree.preOrder(node => console.log(node.data));
+// tree.inOrder(node => console.log(node.data));
+// tree.postOrder(node => console.log(node.data));
+console.log(tree.height(6345)); // 0
+console.log(tree.height(8)); // 1
+console.log(tree.height(5)); // 2
+console.log(tree.height(23)); // 3
