@@ -21,7 +21,7 @@ function Tree() {
       let finalArr = [];
       let leftArr = [];
       let rightArr = [];
-      let sort = null;
+      let sorted = null;
         
       const removeDupes = (arr) => {
         //Remove duplicates
@@ -33,19 +33,19 @@ function Tree() {
 
       finalArr = removeDupes(arr);
       // Run margeSort.js
-      sort = mergeSort(arr);
+      sorted = mergeSort(finalArr);
       
-      if (finalArr.length === 0) return null;
+      if (sorted.length === 0) return null;
 
-      if (finalArr.length === 1) {
-          root = Node(finalArr[0], null, null)
+      if (sorted.length === 1) {
+          root = Node(sorted[0], null, null)
           return root;
       }
 
-      leftArr = finalArr.slice(0, mid);
-      rightArr = finalArr.slice(mid + 1);   
+      leftArr = sorted.slice(0, mid);
+      rightArr = sorted.slice(mid + 1);   
       
-      root = Node(finalArr[mid], buildTree(leftArr), buildTree(rightArr));
+      root = Node(sorted[mid], buildTree(leftArr), buildTree(rightArr));
       
       return root;
     }
@@ -86,9 +86,8 @@ function Tree() {
 
       if (!root) return root; 
 
-      // Note, if the node to be deleted has right and left children go to the right, find the smallest and replace
-      // it with the smallest number found, 
-      // So after root.data === value, go to the right, then go to the left until its null you will find the smallest
+      // Note, if the node to be deleted has right and left children go to the right, find the smallest and replace 
+      // it with the smallest number found
       if (root.data > value) {
         root.left = deleteItemRec(root.left, value);
         return root;
@@ -123,7 +122,48 @@ function Tree() {
       }
     }
 
-  return { root, buildTree, insert, deleteItem }
+    const find = (value) => {
+      return findRec(root, value);
+    }
+    
+    const findRec = (root, value) => {
+
+      if (!root) { return `Value ${value} was not found.` }
+      if (root.data == value) {
+        return `Found value ${root.data}.`;
+      }
+
+      if (value < root.data) {
+        // Go to the left
+        return findRec(root.left, value);   
+      }
+
+      if (value > root.data) {
+        // GO to the right
+        return findRec(root.right, value);   
+      }
+    }
+
+    const levelOrder = (callback) => {
+      let queue = [];
+      let curr = root;
+      // Root node, then store left and right somewhere:
+      if (!root) return null;
+
+      if (!callback) throw Error("callback missing");
+
+      queue.push(root);
+
+      while (queue.length > 0) {
+        curr = queue.shift();
+        callback(curr);
+        if (curr.left !== null) queue.push(curr.left);
+        if (curr.right !== null) queue.push(curr.right);
+
+      }
+    }
+
+  return { root, buildTree, insert, deleteItem, find, levelOrder }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -150,3 +190,10 @@ tree.deleteItem(123);
 tree.deleteItem(534);
 tree.deleteItem(14);
 console.log("Removed:", prettyPrint(treeBuilt));
+console.log(tree.find(5));
+console.log(tree.find(43));
+console.log(tree.find(3));
+console.log(tree.find(23));
+console.log(tree.find(50));
+//console.log(tree.levelOrder(callback));
+tree.levelOrder(node => console.log("test", node.data));
