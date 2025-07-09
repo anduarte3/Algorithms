@@ -66,8 +66,6 @@ function Tree() {
         return root;
       }
 
-      // Traverse BST in search to place value
-      // Note: if value greater than root.data go to right, else go to left
       if (value < root.data) {
         //Recursively, go to the left 
         root.left = insertRec(root.left, value);
@@ -79,7 +77,53 @@ function Tree() {
       return root;
     }
 
-  return { root, buildTree, insert }
+    const deleteItem = (value) => {
+      root = deleteItemRec(root, value);
+    }
+
+    const deleteItemRec = (root, value) => {
+      let curr = null;
+
+      if (!root) return root; 
+
+      // Note, if the node to be deleted has right and left children go to the right, find the smallest and replace
+      // it with the smallest number found, 
+      // So after root.data === value, go to the right, then go to the left until its null you will find the smallest
+      if (root.data > value) {
+        root.left = deleteItemRec(root.left, value);
+        return root;
+      } else if (root.data < value) {
+        root.right = deleteItemRec(root.right, value);
+        return root;
+      } else {
+        // If value == root.data
+        if (!root.left) return root.right;
+        if (!root.right) return root.left;
+
+        if (root.left === null) {
+          console.log("Returning root.left", root.right);
+          return root.right;
+        }
+
+        if (root.right === null) {
+          console.log("Returning root.left", root.left);
+          return root.left;
+        }
+
+        // Case if both childrens have nodes
+        curr = root.right;
+
+        while (curr.left) {
+          curr = curr.left;
+        }
+        root.data = curr.data;
+        root.right = deleteItemRec(root.right, root.data);
+
+        return root;
+      }
+    }
+
+  return { root, buildTree, insert, deleteItem }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -97,17 +141,12 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 const tree = Tree();
 const treeBuilt = tree.buildTree(arr);
-console.log(prettyPrint(treeBuilt));
-tree.insert(2);
+//console.log(prettyPrint(treeBuilt));
 tree.insert(123);
 tree.insert(534);
 tree.insert(14);
-tree.insert(5);
-console.log(prettyPrint(treeBuilt));
-
-// tree.root = tree.insert(tree.root, 2);
-// tree.root = tree.insert(tree.root, 78);
-// tree.root = tree.insert(tree.root, 5);
-// tree.root = tree.insert(tree.root, 44);
-// tree.root = tree.insert(tree.root, 36);
-// tree.root = tree.insert(tree.root, 22);
+console.log("Added:", prettyPrint(treeBuilt));
+tree.deleteItem(123);
+tree.deleteItem(534);
+tree.deleteItem(14);
+console.log("Removed:", prettyPrint(treeBuilt));
