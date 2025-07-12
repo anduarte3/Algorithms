@@ -22,27 +22,47 @@
 // Binary Search	Sorted	O(log n)	Large, sorted lists
 // Hash Search	Any (with hash)	O(1) (avg case)	When fast lookup is essential
 
-let start = [0,0];
-let end = [8,8];
+function createChessBoard() {
+    let chessboard = [];
+
+    for (let i=0; i<8; i++) {
+        let arr = [];
+        for (let j=0; j<8; j++) {
+            arr.push([i,j]);
+        }
+        chessboard.push(arr);
+    }
+
+    // Pretty print for Chessboard
+    for (let rowIndex = chessboard.length - 1; rowIndex >= 0; rowIndex--) {
+        let row = chessboard[rowIndex];
+        console.log(row.map(square => `[${square[0]},${square[1]}]`).join(' '));
+    }
+
+    return chessboard;
+}
+
+let start = [0][0];
+let end = [8][8];
 
 function KnightMoves(start, end) {
+    let knight = [];
+    let queue = [];
 
+    // Initialize chessboard
+    let chessboard = createChessBoard();
+    chessboard = new Array(chessboard.length).fill(false);
+
+    chessboard[start] = true;
+    console.log("Initial queue:", );
+    
+    queue.push(start);
+    console.log("Checking queue:", queue);
+    
+    while (queue.length > 0) {
+
+    }
 }
 
 console.log(KnightMoves(start, end));
 
-let chessboard = [];
-
-for (let i=0; i<8; i++) {
-    let arr = [];
-    for (let j=0; j<8; j++) {
-        arr.push([i,j]);
-    }
-    chessboard.push(arr);
-}
-
-console.log(chessboard);
-
-for (let row of chessboard) {
-    console.log(row.map(square => `[${square[0]},${square[1]}]`).join(' '));
-}
