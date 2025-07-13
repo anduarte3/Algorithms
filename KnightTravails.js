@@ -49,6 +49,7 @@ function KnightMoves(start, end) {
     let knightPath = [
         [1,2], [-1,2], [-1,-2], [1,-2], [2,1], [-2,1], [-2,-1], [2,-1]
     ];
+    let knight = [];
     
     if (start[0] == end[0] && start[1] == end[1]) {
         return "Start and end are the same!"
@@ -79,7 +80,21 @@ function KnightMoves(start, end) {
 
     while (queue.length > 0) {
         let curr = queue.shift();
-        console.log(curr);
+        console.log("Current", curr);
+        
+        knight.push(curr);
+        console.log("Knight Array:", knight);
+
+        // For each curr, generate next moves
+        // Knight moves after initial position
+        // Might be a good idea to create a function for collisions
+        for (let v of knightPath) {
+            console.log(v);
+            if (!chessboard[v]) {
+                chessboard[v] = true;
+                queue.push(v);
+            }
+        }
     }
 }
 
