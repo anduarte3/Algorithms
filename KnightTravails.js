@@ -17,11 +17,6 @@
 //     O(2ⁿ) - Exponential Complexity
 //     O(N!) - Factorial Complexity
 
-// Algorithm	Data Requirement	Average Speed	When to Use
-// Linear Search	Unsorted	O(n)	Small or unsorted lists
-// Binary Search	Sorted	O(log n)	Large, sorted lists
-// Hash Search	Any (with hash)	O(1) (avg case)	When fast lookup is essential
-
 function createChessBoard() {
     let chessboard = [];
 
@@ -42,35 +37,49 @@ function createChessBoard() {
     return chessboard;
 }
 
-let start = [0][0];
-let end = [8][8];
+let start = [0,0];
+let end = [7,7];
+
+let offset = [1,2];
 
 function KnightMoves(start, end) {
-    let knight = [];
+    let move = [];
     let queue = [];
+    // Knight moves a combination of 1,2
     let knightPath = [
         [1,2], [-1,2], [-1,-2], [1,-2], [2,1], [-2,1], [-2,-1], [2,-1]
     ];
-
-    console.log(knightPath);
     
+    if (start[0] == end[0] && start[1] == end[1]) {
+        return "Start and end are the same!"
+    }
+
     // Initialize chessboard
     let chessboard = createChessBoard();
     chessboard = new Array(chessboard.length).fill(false);
 
     chessboard[start] = true;
-    console.log("Initial queue:", );
     
-    queue.push(start);
+    // Only push to the queue if value is correct
+    for (let i=0; i<knightPath.length; i++) {
+        move = start.map((val, e) => val + knightPath[i][e]);
+
+        // Check if it's out of bounds
+        if (move[0] < 0 || move[0] >= 7) {
+            console.log("Error, out of bounds!", move);
+        } else if (move[1] < 0 || move[1] >= 7) {
+            console.log("Error, out of bounds!", move);
+        } else {
+            console.log("Move to:", move);
+            queue.push(move);
+        }
+    }
+    
     console.log("Checking queue:", queue);
-    
-    // Knight walks moves a combination of 1,2
-    // 1,2 | -1,2 | -1-2 | 1,-2 | 2,1 | -2,1 | -2,-1 | 2,-1 |
+
     while (queue.length > 0) {
         let curr = queue.shift();
-        // knight
-        // knight.push(curr);
-
+        console.log(curr);
     }
 }
 
