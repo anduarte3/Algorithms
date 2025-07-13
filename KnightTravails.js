@@ -48,7 +48,12 @@ let end = [8][8];
 function KnightMoves(start, end) {
     let knight = [];
     let queue = [];
+    let knightPath = [
+        [1,2], [-1,2], [-1,-2], [1,-2], [2,1], [-2,1], [-2,-1], [2,-1]
+    ];
 
+    console.log(knightPath);
+    
     // Initialize chessboard
     let chessboard = createChessBoard();
     chessboard = new Array(chessboard.length).fill(false);
@@ -59,10 +64,14 @@ function KnightMoves(start, end) {
     queue.push(start);
     console.log("Checking queue:", queue);
     
+    // Knight walks moves a combination of 1,2
+    // 1,2 | -1,2 | -1-2 | 1,-2 | 2,1 | -2,1 | -2,-1 | 2,-1 |
     while (queue.length > 0) {
+        let curr = queue.shift();
+        // knight
+        // knight.push(curr);
 
     }
 }
 
 console.log(KnightMoves(start, end));
-
