@@ -39,7 +39,6 @@ function createChessBoard() {
 
 function KnightMoves(start, end) {
     let length = 0;
-    let shortest = { path: [], position: start };
     let queue = [];
     // Knight moves a combination of 1,2
     let path = [
@@ -49,9 +48,6 @@ function KnightMoves(start, end) {
     if (start[0] == end[0] && start[1] == end[1]) {
         return "Start and end are the same!"
     }
-
-    console.log("Start:", start);
-    console.log("End:", end);
 
     // Initialize chessboard
     let chessboard = createChessBoard();
@@ -97,9 +93,8 @@ function KnightMoves(start, end) {
                         queue.push({ position: next, path: [...curr, next] });
                     }
                     if (next[0] == end[0] && next [1] == end[1]) { 
-                        console.log(queue[queue.length-1]);
                         
-                        return `Reached destination! It took ${length + 1} moves, and the path was ${JSON.stringify(queue[queue.length - 1].path.map(p => `[${p[0]},${p[1]}]`).join(' -> '))}.`
+                        return `You made it in ${length + 1} moves, The path was: ${JSON.stringify(queue[queue.length - 1].path.map(p => `[${p[0]},${p[1]}]`).join(' -> '))}.`
                     }
                 }    
             }
