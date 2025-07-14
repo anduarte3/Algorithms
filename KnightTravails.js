@@ -39,7 +39,7 @@ function createChessBoard() {
 
 function KnightMoves(start, end) {
     let length = 0;
-    let visited = [];
+    let shortest = { path: [], position: start };
     let queue = [];
     // Knight moves a combination of 1,2
     let path = [
@@ -79,33 +79,30 @@ function KnightMoves(start, end) {
         return "Start or end position is out of bounds!";
     }
     
-    queue.push(start);
+    queue.push({ position: start, path: [start] });
 
     while (queue.length > 0) {
         let size = queue.length;
 
         for (let i=0; i<size; i++) {
-            let curr = queue.shift();
+            let { position, path: curr} = queue.shift();
 
             // For each curr, generate next moves
             for (let p of path) {
-                let next = curr.map((val, e) => val + p[e]);
-                
-                if (isMoveLegal(next)) {
+                let next = position.map((val, i) => val + p[i]);
 
+                if (isMoveLegal(next)) {
                     if (!chessboard[next[0]][next[1]]) {
                         chessboard[next[0]][next[1]] = true;
-                        queue.push(next);                        
-                    } 
-
-                    if (next[0] == end[0] && next [1] == end[1]) {   
-                        visited.push(curr);    
-                        return `Reached destination! It took ${length + 1} moves, and the path was ${visited}.`
+                        queue.push({ position: next, path: [...curr, next] });
+                    }
+                    if (next[0] == end[0] && next [1] == end[1]) { 
+                        console.log(queue[queue.length-1]);
+                        
+                        return `Reached destination! It took ${length + 1} moves, and the path was ${JSON.stringify(queue[queue.length - 1].path.map(p => `[${p[0]},${p[1]}]`).join(' -> '))}.`
                     }
                 }    
             }
-            visited.push(curr);
-            console.log("visited",visited);
         }
         length++;
     }
