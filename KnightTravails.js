@@ -37,65 +37,81 @@ function createChessBoard() {
     return chessboard;
 }
 
-let start = [0,0];
-let end = [7,7];
-
-let offset = [1,2];
-
 function KnightMoves(start, end) {
-    let move = [];
+    let length = 0;
+    let visited = [];
     let queue = [];
     // Knight moves a combination of 1,2
-    let knightPath = [
+    let path = [
         [1,2], [-1,2], [-1,-2], [1,-2], [2,1], [-2,1], [-2,-1], [2,-1]
     ];
-    let knight = [];
     
     if (start[0] == end[0] && start[1] == end[1]) {
         return "Start and end are the same!"
     }
 
+    console.log("Start:", start);
+    console.log("End:", end);
+
     // Initialize chessboard
     let chessboard = createChessBoard();
-    chessboard = new Array(chessboard.length).fill(false);
-
-    chessboard[start] = true;
+    chessboard = Array.from({ length: 8 }, () => Array(8).fill(false));;
+    
+    chessboard[start[0]][start[1]] = true;
     
     // Only push to the queue if value is correct
-    for (let i=0; i<knightPath.length; i++) {
-        move = start.map((val, e) => val + knightPath[i][e]);
+    const isMoveLegal = (move) => {
 
         // Check if it's out of bounds
-        if (move[0] < 0 || move[0] >= 7) {
-            console.log("Error, out of bounds!", move);
-        } else if (move[1] < 0 || move[1] >= 7) {
-            console.log("Error, out of bounds!", move);
+        if (move[0] < 0 || move[0] > 7) {
+            //console.log("Error, out of bounds!", move);
+            return false;
+        } else if (move[1] < 0 || move[1] > 7) {
+            //console.log("Error, out of bounds!", move);
+            return false;
         } else {
-            console.log("Move to:", move);
-            queue.push(move);
+            //console.log("Move is valid!");
+            return true;
         }
+    }
+
+    if (!isMoveLegal(start) || !isMoveLegal(end)) {
+        return "Start or end position is out of bounds!";
     }
     
-    console.log("Checking queue:", queue);
+    queue.push(start);
 
     while (queue.length > 0) {
-        let curr = queue.shift();
-        console.log("Current", curr);
-        
-        knight.push(curr);
-        console.log("Knight Array:", knight);
+        let size = queue.length;
 
-        // For each curr, generate next moves
-        // Knight moves after initial position
-        // Might be a good idea to create a function for collisions
-        for (let v of knightPath) {
-            console.log(v);
-            if (!chessboard[v]) {
-                chessboard[v] = true;
-                queue.push(v);
+        for (let i=0; i<size; i++) {
+            let curr = queue.shift();
+
+            // For each curr, generate next moves
+            for (let p of path) {
+                let next = curr.map((val, e) => val + p[e]);
+                
+                if (isMoveLegal(next)) {
+
+                    if (!chessboard[next[0]][next[1]]) {
+                        chessboard[next[0]][next[1]] = true;
+                        queue.push(next);                        
+                    } 
+
+                    if (next[0] == end[0] && next [1] == end[1]) {   
+                        visited.push(curr);    
+                        return `Reached destination! It took ${length + 1} moves, and the path was ${visited}.`
+                    }
+                }    
             }
+            visited.push(curr);
+            console.log("visited",visited);
         }
+        length++;
     }
 }
+
+let start = [2,2];
+let end = [4,4];
 
 console.log(KnightMoves(start, end));
