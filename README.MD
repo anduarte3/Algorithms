@@ -1,4 +1,4 @@
-# Algorithms
+# Algorithms and Data Structures
 
 This repo mainly contains algorithms and data structures implemented in **JavaScript**.
 
