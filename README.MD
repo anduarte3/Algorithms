@@ -16,8 +16,8 @@ A linked list is a fundamental data structure in computer science. It mainly all
 ---
 
 HashMap.js
-A HashMap (also known as a dictionary or hash table in other programming languages) is a collection of key-value pairs 
 ---
+A HashMap (also known as a dictionary or hash table in other programming languages) is a collection of key-value pairs 
 
 BinarySearchTrees.js
 A Binary Search Tree (BST) is a type of binary tree data structure in which each node contains a unique key and satisfies a specific ordering property:
