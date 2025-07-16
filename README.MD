@@ -1,4 +1,4 @@
-###Algorithms
+Algorithms
 
 This repo mainly contains algorithms and data structures done in javascript.
 ---
