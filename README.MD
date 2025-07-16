@@ -1,32 +1,52 @@
 # Algorithms
 
-This repo mainly contains algorithms and data structures done in JavaScript.
+This repo mainly contains algorithms and data structures implemented in **JavaScript**.
+
+---
 
 ## Recursion
 
-Recursion is defined as a process which calls itself directly or indirectly and the corresponding function is called a recursive function.
+Recursion is a process where a function calls itself directly or indirectly. The function involved in this process is called a **recursive function**.
+
+---
 
 ## mergeSort
 
-Merge sort is a popular sorting algorithm known for its efficiency and stability. It follows the divide-and-conquer approach. It works by recursively dividing the input array into two halves, recursively sorting the two halves and finally merging them back together to obtain the sorted array.
+Merge sort is a popular sorting algorithm known for its **efficiency** and **stability**. It uses a **divide-and-conquer** approach by:
+
+- Recursively dividing the input array into two halves.
+- Sorting each half recursively.
+- Merging the sorted halves to produce the final sorted array.
+
+---
 
 ## LinkedList
 
-A linked list is a fundamental data structure in computer science. It mainly allows efficient insertion and deletion operations compared to arrays. Like arrays, it is also used to implement other data structures like stack, queue, and deque.
+A linked list is a fundamental data structure that allows efficient **insertion** and **deletion** operations compared to arrays. It is often used to implement other data structures like:
+
+- Stack
+- Queue
+- Deque
+
+---
 
 ## HashMap
 
-A HashMap (also known as a dictionary or hash table in other programming languages) is a collection of key-value pairs.
+A HashMap (also called a dictionary or hash table in other languages) is a collection of **key-value pairs**, allowing fast data retrieval based on keys.
 
-## BinarySearchTrees
+---
 
-A Binary Search Tree (BST) is a type of binary tree data structure in which each node contains a unique key and satisfies a specific ordering property:
+## Binary Search Trees
 
-- All nodes in the left subtree of a node contain values **strictly less** than the node’s value.
-- All nodes in the right subtree of a node contain values **strictly greater** than the node’s value.
+A **Binary Search Tree (BST)** is a special kind of binary tree where each node contains a unique key and follows these properties:
 
-This structure enables efficient operations for searching, insertion, and deletion of elements, especially when the tree remains balanced.
+- All nodes in the **left subtree** have values **less than** the node’s value.
+- All nodes in the **right subtree** have values **greater than** the node’s value.
+
+This structure allows efficient searching, insertion, and deletion, especially when the tree is balanced.
+
+---
 
 ## KnightTravails
 
-Project consisting in finding the shortest path for a knight on a chessboard using BFS.
+This project finds the shortest path for a knight on a chessboard using **Breadth-First Search (BFS)**.
